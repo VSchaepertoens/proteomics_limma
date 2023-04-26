@@ -49,11 +49,11 @@ data.matrix <- data_exp3 %>%
 dim(data.matrix)
 
 colnames(data.matrix) <- data_meta$sample #rename columns of data.matrix
-design.matrix <- data_meta %>% as.matrix()
+#design.matrix <- data_meta %>% as.matrix()
 
 # save data ---------------------------------------------------------------
 
-save(data.matrix, design.matrix, file="analysis/01_merge_data/all_data.RData")
+save(data.matrix, data_meta, file="analysis/01_merge_data/all_data.RData")
 
 
 
