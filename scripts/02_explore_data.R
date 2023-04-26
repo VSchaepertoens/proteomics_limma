@@ -39,7 +39,7 @@ boxplot(data.matrix,
 # plot PCA ----------------------------------------------------------------
 
 mds <- plotMDS(x = data.matrix,
-              col=c(rep("green",9), rep("red",9), rep("blue", 9)),
+              col = c(rep("green",9), rep("red",9), rep("blue", 9)),
               labels = data_meta$experiment, 
               gene.selection = "common",
               var.explained = TRUE)
@@ -61,10 +61,12 @@ pheatmap(cor(data.matrix,method = "spearman"))
 data.matrix.batch <- removeBatchEffect(x = data.matrix,
                                        batch = data_meta$experiment)
 
+saveRDS(data.matrix.batch, file = "analysis/02_explore_data/batch_corrected_all_data.rds")
+
 # batch-corrected plot PCA ------------------------------------------------
 
 mds <- plotMDS(x = data.matrix.batch,
-               col=c(rep("green",9), rep("red",9), rep("blue", 9)),
+               col = c(rep("green",9), rep("red",9), rep("blue", 9)),
                labels = data_meta$sample, 
                gene.selection = "common",
                var.explained = TRUE)
