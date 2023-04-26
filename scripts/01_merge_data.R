@@ -2,7 +2,7 @@
 ##
 ## Script name: 01_merge_data
 ##
-## Purpose of script: Loads and merges all datasets, loads meta data, saves merged dataset and meta data as matrices
+## Purpose of script: Loads and merges all datasets, loads meta data, saves merged dataset and meta data 
 ##
 ## Author: Dr. Veronika Schäpertöns
 ##

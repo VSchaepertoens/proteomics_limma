@@ -2,7 +2,7 @@
 ##
 ## Script name: 02_explore_data
 ##
-## Purpose of script: Explores data with PCA and hierachical clustering, corrects for batch-effect
+## Purpose of script: Explores data with PCA and Pearson's correlation, corrects for batch-effect
 ##
 ## Author: Dr. Veronika Schäpertöns
 ##
