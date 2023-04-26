@@ -16,3 +16,4 @@ Run these R scripts in the given in order to generate all files
 
 -   [01_merge_data.R](scripts/01_merge_data.R) - Loads and merges all datasets, loads meta data, saves merged dataset and meta data
 -   [02_explore_data.R](scripts/02_explore_data.R) - Explores data with PCA and Pearson's correlation, corrects for batch-effect
+-   [03_analyse_dge.R](scripts/03_analyse_dge.R) - Analyses differential protein expression using linear models package limma
