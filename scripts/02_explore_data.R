@@ -4,7 +4,7 @@
 ##
 ## Purpose of script: Explores data with PCA and Pearson's correlation, corrects for batch-effect
 ##
-## Author: Dr. Veronika Schäpertöns
+## Author: Dr. Veronika Schäpertöns & Prof. Nikolaus Fortelny
 ##
 ## Date Created: 26.04.2023
 ##
@@ -17,8 +17,6 @@
 ##   
 ##
 ## ---------------------------
-
-# libraries ----------------------------------------------------------------
 
 library(pheatmap)
 library(limma)
@@ -82,5 +80,16 @@ ggplot(var_explained, aes(x = rownames(var_explained), y = variance)) +
 # batch-corrected plot heatmap of Pearson correlations --------------------
 
 pheatmap(cor(data.matrix.batch,method = "spearman"))
+
+# subset only treated batch-corrected samples -----------------------------
+
+data.matrix.batch.treated <- data.matrix.batch[, -grep("un", colnames(data.matrix.batch))]
+
+data_meta_treated <- data_meta[-grep("un", data_meta$treatment),]
+
+save(data.matrix.batch.treated, data_meta_treated, file = "analysis/02_explore_data/treated_batch_corrected_all_data.RData")
+
+
+
 
 
