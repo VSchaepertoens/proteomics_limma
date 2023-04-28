@@ -82,7 +82,6 @@ res <- rbind(res, data.table(
 res[,direction := ifelse(logFC > 0, "up", "down")]
 
 res$res <- 1:nrow(res)
-resOrig <- copy(res)
 
 # Number of significant hits
 res[adj.P.Val < 0.05][,.N, by = c("coef", "direction")]
