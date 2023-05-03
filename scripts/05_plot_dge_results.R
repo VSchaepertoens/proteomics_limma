@@ -28,6 +28,8 @@ data.matrix.batch <- readRDS("analysis/02_explore_data/batch_corrected_all_data.
 
 res <- readRDS("analysis/03_analyse_dge/results_dge_gene.rds")
 
+load(file = "analysis/02_explore_data/matched_treated_batch_corrected_all_data.RData")
+
 
 # plot results ------------------------------------------------------------
 
@@ -104,7 +106,23 @@ pheatmap(data.matrix.batch[res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$rn,],
 
 
 
+#plot only top genes
+ann_df <- data.frame(logFC = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$logFC,
+                     rn = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$rn,
+                     gene = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$Gene)
 
+ann_df <- ann_df[order(abs(ann_df$logFC), decreasing = TRUE),]  
+
+#ann.row <- with(res[coef == "drfae_vs_hpyl"], data.frame(row.names = rn,logFC = ifelse(logFC > 0, 1,-1)))
+ann.row <- with(ann_df[1:20,], data.frame(row.names = gene,logFC = ifelse(logFC > 0, 1,-1)))
+
+#top 20
+pheatmap(data.matrix.batch.treated.matched[ann_df$gene[1:20],], 
+         annotation_colors = list(logFC = c("blue","red")),
+         annotation_row = ann.row,
+         cluster_cols = T,
+         show_rownames = TRUE,
+         scale = "row")
 
 
 
