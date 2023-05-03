@@ -65,42 +65,45 @@ ggplot(pDT[adj.P.Val < 0.05], aes(x = logFC_hpyl, y = logFC_drfae)) +
 # plot heatmaps of log2 values --------------------------------------------
 
 # heatmap of drfae vs untreated, all significant genes, all samples
-ann.row <- with(res[coef == "drfae"], data.frame(row.names = rn,logFC = ifelse(logFC > 0, 1,-1)))
-pheatmap(data.matrix.batch[res[coef == "drfae"][adj.P.Val < 0.05]$rn,],
-         annotation_colors = list(logFC = c("blue","red")),
-         annotation_row = ann.row,
-         cluster_cols = T,
-         show_rownames = FALSE,
-         scale = "row")
+plot_genes <- function(mat,
+                       comparison,
+                       detailed_annotation = FALSE,
+                       top_n = Inf) {
+  selected_genes <- 
+    res[coef == "drfae_vs_hpyl"] %>%
+    as_tibble() %>% 
+    mutate(abs_logFC = abs(logFC)) %>% 
+    slice_max(n = top_n, abs_logFC) %>% 
+    pull(Gene)
+  
+  if (detailed_annotation) {
+    annx <- dcast.data.table(res, rn ~ coef, value.var = "logFC")
+    ann.row <- data.frame(row.names = annx$rn, annx[, -"rn", with = FALSE])
+  } else {
+    ann.row <- with(
+      res[coef == comparison],
+      data.frame(row.names = rn, logFC = ifelse(logFC > 0, 1, -1))
+    )
+  }
+  
+  pheatmap(mat[res[coef == comparison][adj.P.Val < 0.05]$rn,],
+           annotation_colors = list(logFC = c("blue","red")),
+           annotation_row = ann.row,
+           cluster_cols = TRUE,
+           show_rownames = FALSE,
+           scale = "row")  
+}
+
+plot_genes(data.matrix.batch, "drfae")
 
 # heatmap of hpyl vs untreated, all significant genes, all samples
-ann.row <- with(res[coef == "hpyl"], data.frame(row.names = rn,logFC = ifelse(logFC > 0, 1,-1)))
-pheatmap(data.matrix.batch[res[coef == "hpyl"][adj.P.Val < 0.05]$rn,], 
-         annotation_colors = list(logFC = c("blue","red")),
-         annotation_row = ann.row,
-         cluster_cols = T,
-         show_rownames = FALSE,
-         scale = "row")
+plot_genes(data.matrix.batch, "hpyl")
 
 # heatmap of drfae vs hpyl, all significant genes, all samples
-ann.row <- with(res[coef == "drfae_vs_hpyl"], data.frame(row.names = rn,logFC = ifelse(logFC > 0, 1,-1)))
-pheatmap(data.matrix.batch[res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$rn,], 
-         annotation_colors = list(logFC = c("blue","red")),
-         annotation_row = ann.row,
-         cluster_cols = T,
-         show_rownames = FALSE,
-         scale = "row")
+plot_genes(data.matrix.batch, "drfae_vs_hpyl")
 
 # heatmap of drfae vs hpyl, all significant genes, all samples, ANNOTATE by actual logFC values
-ann.row <- with(res[coef == "drfae_vs_hpyl"], data.frame(row.names = rn,logFC = ifelse(logFC > 0, 1,-1)))
-annx <- dcast.data.table(res, rn ~ coef, value.var = "logFC")
-ann.row <- data.frame(row.names = annx$rn, annx[,-"rn",with = F])
-pheatmap(data.matrix.batch[res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$rn,], 
-         annotation_colors = list(logFC = c("blue","red")),
-         annotation_row = ann.row,
-         cluster_cols = T,
-         show_rownames = FALSE,
-         scale = "row")
+plot_genes(data.matrix.batch, "drfae_vs_hpyl", TRUE)
 
 # heatmap of drfae vs hpyl, all significant genes, ONLY TREATED samples
 
@@ -117,7 +120,7 @@ ann_df <- ann_df[order(abs(ann_df$logFC), decreasing = TRUE),]
 ann.row <- with(ann_df[1:20,], data.frame(row.names = gene,logFC = ifelse(logFC > 0, 1,-1)))
 
 #top 20
-pheatmap(data.matrix.batch.treated.matched[ann_df$gene[1:20],], 
+pheatmap(data.matrix.batch.treated.matched[selected_genes, ], 
          annotation_colors = list(logFC = c("blue","red")),
          annotation_row = ann.row,
          cluster_cols = T,
@@ -125,8 +128,10 @@ pheatmap(data.matrix.batch.treated.matched[ann_df$gene[1:20],],
          scale = "row")
 
 
+data.matrix.batch[, ...] %>% 
+  plot_genes()
 
-
+plot_genes(data.matrix.batch[, ...], )
 
 
 
