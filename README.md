@@ -12,8 +12,10 @@ Create a folder `data` that will contain raw data downloaded from the following 
 
 ## Main workflow
 
-Run these R scripts in the given in order to generate all files
+Run these R scripts in the given in order to generate all files & plots
 
 -   [01_merge_data.R](scripts/01_merge_data.R) - Loads and merges all datasets, loads meta data, saves merged dataset and meta data
 -   [02_explore_data.R](scripts/02_explore_data.R) - Explores data with PCA and Pearson's correlation, corrects for batch-effect
 -   [03_analyse_dge.R](scripts/03_analyse_dge.R) - Analyses differential protein expression using linear models package limma
+-   [04_map_protein_to_gene.R](scripts/04_map_protein_to_gene.R) - Maps protein ids to gene ids
+-   [05_plot_dge_results.R](scripts/05_plot_dge_results.R) - Plots volcano plots, pval histograms and heatmaps of dge analysis
