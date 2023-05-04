@@ -64,7 +64,7 @@ ggplot(pDT[adj.P.Val < 0.05], aes(x = logFC_hpyl, y = logFC_drfae)) +
 
 # plot heatmaps of log2 values --------------------------------------------
 
-# heatmap of drfae vs untreated, all significant genes, all samples
+# function to plot all proteins for a certain condition
 plot_genes <- function(mat,
                        comparison,
                        detailed_annotation = FALSE,
@@ -105,33 +105,35 @@ plot_genes(data.matrix.batch, "drfae_vs_hpyl")
 # heatmap of drfae vs hpyl, all significant genes, all samples, ANNOTATE by actual logFC values
 plot_genes(data.matrix.batch, "drfae_vs_hpyl", TRUE)
 
-# heatmap of drfae vs hpyl, all significant genes, ONLY TREATED samples
-
-
-
-#plot only top genes
-ann_df <- data.frame(logFC = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$logFC,
-                     rn = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$rn,
-                     gene = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$Gene)
-
-ann_df <- ann_df[order(abs(ann_df$logFC), decreasing = TRUE),]  
-
-#ann.row <- with(res[coef == "drfae_vs_hpyl"], data.frame(row.names = rn,logFC = ifelse(logFC > 0, 1,-1)))
-ann.row <- with(ann_df[1:20,], data.frame(row.names = gene,logFC = ifelse(logFC > 0, 1,-1)))
-
-#top 20
-pheatmap(data.matrix.batch.treated.matched[selected_genes, ], 
-         annotation_colors = list(logFC = c("blue","red")),
-         annotation_row = ann.row,
-         cluster_cols = T,
-         show_rownames = TRUE,
-         scale = "row")
-
-
 data.matrix.batch[, ...] %>% 
   plot_genes()
 
 plot_genes(data.matrix.batch[, ...], )
+
+
+## function to plot top genes
+plot_top_genes <- function(mat, 
+                           no_genes = 20){
+  
+  ann_df <- data.frame(logFC = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$logFC,
+                       rn = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$rn,
+                       gene = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$Gene)
+  
+  ann_df <- ann_df[order(abs(ann_df$logFC), decreasing = TRUE),]  
+  
+  ann.row <- with(ann_df[1:no_genes,], data.frame(row.names = gene,logFC = ifelse(logFC > 0, 1,-1)))
+  
+  pheatmap(mat[ann_df$gene[1:no_genes], ], 
+           annotation_colors = list(logFC = c("blue","red")),
+           annotation_row = ann.row,
+           cluster_cols = T,
+           show_rownames = TRUE,
+           scale = "row")
+  }
+
+plot_top_genes(data.matrix.batch.treated.matched, 30)
+
+
 
 
 
