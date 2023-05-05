@@ -59,7 +59,8 @@ pheatmap(cor(data.matrix,method = "spearman"))
 data.matrix.batch <- removeBatchEffect(x = data.matrix,
                                        batch = data_meta$experiment)
 
-saveRDS(data.matrix.batch, file = "analysis/02_explore_data/batch_corrected_all_data.rds")
+saveRDS(data.matrix.batch, 
+        file = "analysis/02_explore_data/batch_corrected_all_data.rds")
 
 # batch-corrected plot PCA ------------------------------------------------
 
@@ -87,7 +88,9 @@ data.matrix.batch.treated <- data.matrix.batch[, -grep("un", colnames(data.matri
 
 data_meta_treated <- data_meta[-grep("un", data_meta$treatment),]
 
-save(data.matrix.batch.treated, data_meta_treated, file = "analysis/02_explore_data/treated_batch_corrected_all_data.RData")
+save(data.matrix.batch.treated, 
+     data_meta_treated, 
+     file = "analysis/02_explore_data/treated_batch_corrected_all_data.RData")
 
 
 
