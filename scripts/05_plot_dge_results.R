@@ -20,15 +20,16 @@
 
 library(ggplot2)
 library(ggrepel)
+library(tidyverse)
 library(pheatmap)
 
 # load data ---------------------------------------------------------------
 
 data.matrix.batch <- readRDS("analysis/02_explore_data/batch_corrected_all_data.rds")
 
-res <- readRDS("analysis/03_analyse_dge/results_dge_gene.rds")
+res <- readRDS("analysis/04_map_protein_to_gene/results_dge_gene.rds")
 
-load(file = "analysis/02_explore_data/matched_treated_batch_corrected_all_data.RData")
+load(file = "analysis/04_map_protein_to_gene/matched_treated_batch_corrected_all_data.RData")
 
 
 # plot results ------------------------------------------------------------
@@ -105,10 +106,10 @@ plot_genes(data.matrix.batch, "drfae_vs_hpyl")
 # heatmap of drfae vs hpyl, all significant genes, all samples, ANNOTATE by actual logFC values
 plot_genes(data.matrix.batch, "drfae_vs_hpyl", TRUE)
 
-data.matrix.batch[, ...] %>% 
-  plot_genes()
-
-plot_genes(data.matrix.batch[, ...], )
+# data.matrix.batch[, ...] %>% 
+#   plot_genes()
+# 
+# plot_genes(data.matrix.batch[, ...], )
 
 
 ## function to plot top genes
@@ -131,9 +132,11 @@ plot_top_genes <- function(mat,
            scale = "row")
   }
 
-plot_top_genes(data.matrix.batch.treated.matched, 30)
+plot_top_genes(data.matrix.batch.treated.matched, 20)
 
+plot_top_genes(data.matrix.batch.treated.matched, 40)
 
+plot_top_genes(data.matrix.batch.treated.matched, 60)
 
 
 
