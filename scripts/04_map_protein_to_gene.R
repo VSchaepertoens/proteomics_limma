@@ -27,8 +27,7 @@ res <- readRDS(file = "analysis/03_analyse_dge/results_dge.rds")
 
 load(file = "analysis/02_explore_data/treated_batch_corrected_all_data.RData")
 
-data.matrix.batch <- readRDS(file = "analysis/02_explore_data/batch_corrected_all_data.rds")
-
+#data.matrix.batch <- readRDS(file = "analysis/02_explore_data/batch_corrected_all_data.rds")
 
 pmap <- readRDS(file = "analysis/pmap.rds")
 
@@ -62,36 +61,36 @@ stopifnot(all(res$res %in% resOrig$res))
 stopifnot(nrow(res) == nrow(resOrig))
 res$res <- NULL
 
-saveRDS(res, "analysis/03_analyse_dge/results_dge_gene.rds")
+saveRDS(res, "analysis/04_map_protein_to_gene/results_dge_gene.rds")
 
-## data.matrix.batch ##
-# map protein to gene  ----------------------------------------------------
-
-data.matrix.batch_orig <- copy(data.matrix.batch)
-data.matrix.batch <- cbind(rn = rownames(data.matrix.batch), 
-                           data.matrix.batch)
-data.matrix.batch <- data.table(data.matrix.batch)
-data.matrix.batch[, Uniprot := gsub("sp\\|(.+?)\\|.+$", "\\1", rn)]
-
-data.matrix.batch <- merge(data.matrix.batch, 
-                           unique(pmap[,c('Entry', "Gene", "Organism"),with = F]), 
-                           all.x = TRUE, 
-                           by.x = "Uniprot", 
-                           by.y = "Entry")
-
-# check for duplicates
-idx <- data.matrix.batch[duplicated(data.matrix.batch$Gene) == TRUE, which = TRUE]
-data.matrix.batch <- data.matrix.batch[-(idx),]
-
-# filter out only numeric columns
-data.matrix.batch.matched <- data.matrix.batch[,-c(1,2,30,31)]
-data.matrix.batch.matched <- apply(data.matrix.batch.matched, 
-                                   MARGIN = 2, 
-                                   FUN = as.numeric)
-rownames(data.matrix.batch.matched) <- data.matrix.batch$Gene
-
-save(data.matrix.batch.matched, 
-     file = "analysis/02_explore_data/matched_batch_corrected_all_data.RData")
+# ## data.matrix.batch ##
+# # map protein to gene  ----------------------------------------------------
+# 
+# data.matrix.batch_orig <- copy(data.matrix.batch)
+# data.matrix.batch <- cbind(rn = rownames(data.matrix.batch), 
+#                            data.matrix.batch)
+# data.matrix.batch <- data.table(data.matrix.batch)
+# data.matrix.batch[, Uniprot := gsub("sp\\|(.+?)\\|.+$", "\\1", rn)]
+# 
+# data.matrix.batch <- merge(data.matrix.batch, 
+#                            unique(pmap[,c('Entry', "Gene", "Organism"),with = F]), 
+#                            all.x = TRUE, 
+#                            by.x = "Uniprot", 
+#                            by.y = "Entry")
+# 
+# # check for duplicates
+# idx <- data.matrix.batch[duplicated(data.matrix.batch$Gene) == TRUE, which = TRUE]
+# data.matrix.batch <- data.matrix.batch[-(idx),]
+# 
+# # filter out only numeric columns
+# data.matrix.batch.matched <- data.matrix.batch[,-c(1,2,30,31)]
+# data.matrix.batch.matched <- apply(data.matrix.batch.matched, 
+#                                    MARGIN = 2, 
+#                                    FUN = as.numeric)
+# rownames(data.matrix.batch.matched) <- data.matrix.batch$Gene
+# 
+# save(data.matrix.batch.matched, 
+#      file = "analysis/02_explore_data/matched_batch_corrected_all_data.RData")
 
 
 ## data.matrix.batch.treated ##
@@ -122,5 +121,5 @@ rownames(data.matrix.batch.treated.matched) <- data.matrix.batch.treated$Gene
 
 save(data.matrix.batch.treated.matched, 
      data_meta_treated, 
-     file = "analysis/02_explore_data/matched_treated_batch_corrected_all_data.RData")
+     file = "analysis/04_map_protein_to_gene/matched_treated_batch_corrected_all_data.RData")
 
