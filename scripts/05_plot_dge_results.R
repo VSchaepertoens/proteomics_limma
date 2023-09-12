@@ -95,11 +95,18 @@ plot_genes <- function(mat,
            scale = "row")  
 }
 
+#svg("figures/heatmap_drfae_vs_untreated.svg")
+
 plot_genes(data.matrix.batch, "drfae")
 
-# heatmap of hpyl vs untreated, all significant genes, all samples
-plot_genes(data.matrix.batch, "hpyl")
+#dev.off()
 
+
+
+# heatmap of hpyl vs untreated, all significant genes, all samples
+#svg("figures/heatmap_hpyl_vs_untreated.svg")
+plot_genes(data.matrix.batch, "hpyl")
+#dev.off()
 # heatmap of drfae vs hpyl, all significant genes, all samples
 plot_genes(data.matrix.batch, "drfae_vs_hpyl")
 
@@ -122,13 +129,13 @@ plot_top_genes <- function(mat,
   
   ann_df <- ann_df[order(abs(ann_df$logFC), decreasing = TRUE),]  
   
-  ann.row <- with(ann_df[1:no_genes,], data.frame(row.names = gene,logFC = ifelse(logFC > 0, 1,-1)))
+  ann.row <- with(ann_df[1:no_genes,], data.frame(row.names = gene,log2FC = ifelse(logFC > 0, 1,-1)))
   
   pheatmap(mat[ann_df$gene[1:no_genes], ], 
-           annotation_colors = list(logFC = c("blue","red")),
+           annotation_colors = list(log2FC = c("blue","red")),
            annotation_row = ann.row,
            cluster_cols = T,
-           show_rownames = TRUE,
+           show_rownames = FALSE,
            scale = "row")
   }
 
@@ -138,6 +145,8 @@ plot_top_genes(data.matrix.batch.treated.matched, 40)
 
 plot_top_genes(data.matrix.batch.treated.matched, 60)
 
+#svg("figures/heatmap_dfrae_vs_wt_600dpi.svg")
 
+plot_top_genes(data.matrix.batch.treated.matched, 427) #all sig genes
 
-
+#dev.off()
