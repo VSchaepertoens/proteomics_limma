@@ -25,9 +25,9 @@ library(data.table)
 
 res <- readRDS(file = "analysis/03_analyse_dge/results_dge.rds")
 
-load(file = "analysis/02_explore_data/treated_batch_corrected_all_data.RData")
-
 #data.matrix.batch <- readRDS(file = "analysis/02_explore_data/batch_corrected_all_data.rds")
+
+load(file = "analysis/02_explore_data/treated_batch_corrected_all_data.RData")
 
 pmap <- readRDS(file = "analysis/pmap.rds")
 
@@ -37,7 +37,7 @@ pmap <- readRDS(file = "analysis/pmap.rds")
 
 #copy the original data to keep it unchanged and for checking the dimensions after mapping
 resOrig <- copy(res)
-res <- resOrig
+#res <- resOrig
 
 # all are sp entries
 stopifnot(all(grepl("^sp\\|", res$rn)))
@@ -96,12 +96,21 @@ saveRDS(res, "analysis/04_map_protein_to_gene/results_dge_gene.rds")
 ## data.matrix.batch.treated ##
 # map protein to gene  ----------------------------------------------------
 
+#copy the original data to keep it unchanged and for checking the dimensions after mapping
 data.matrix.batch.treated_orig <- copy(data.matrix.batch.treated)
+data.matrix.batch.treated <- data.matrix.batch.treated_orig
+
+#create a new column rn for row names
 data.matrix.batch.treated <- cbind(rn = rownames(data.matrix.batch.treated), 
                                    data.matrix.batch.treated)
+
+#make dataset into a data.table
 data.matrix.batch.treated <- data.table(data.matrix.batch.treated)
+
+# save Uniprot ID in a new column
 data.matrix.batch.treated[, Uniprot := gsub("sp\\|(.+?)\\|.+$", "\\1", rn)]
 
+# match dataset and pmap by Uniprot ID
 data.matrix.batch.treated <- merge(data.matrix.batch.treated, 
                                    unique(pmap[,c('Entry', "Gene", "Organism"),with = F]), 
                                    all.x = TRUE, 
@@ -112,7 +121,7 @@ data.matrix.batch.treated <- merge(data.matrix.batch.treated,
 idx <- data.matrix.batch.treated[duplicated(data.matrix.batch.treated$Gene) == TRUE, which = TRUE]
 data.matrix.batch.treated <- data.matrix.batch.treated[-(idx),]
 
-# filter out only numeric columns
+# filter out non-numeric columns
 data.matrix.batch.treated.matched <- data.matrix.batch.treated[,-c(1,2,21,22)]
 data.matrix.batch.treated.matched <- apply(data.matrix.batch.treated.matched, 
                                            MARGIN = 2, 
