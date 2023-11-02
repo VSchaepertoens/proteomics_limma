@@ -25,9 +25,9 @@ library(pheatmap)
 
 # load data ---------------------------------------------------------------
 
-data.matrix.batch <- readRDS("analysis/02_explore_data/batch_corrected_all_data.rds")
-
 res <- readRDS("analysis/04_map_protein_to_gene/results_dge_gene.rds")
+
+data.matrix.batch <- readRDS("analysis/02_explore_data/batch_corrected_all_data.rds")
 
 load(file = "analysis/04_map_protein_to_gene/matched_treated_batch_corrected_all_data.RData")
 
@@ -95,28 +95,24 @@ plot_genes <- function(mat,
            scale = "row")  
 }
 
-#svg("figures/heatmap_drfae_vs_untreated.svg")
-
+# heatmap of drfae vs untreated, all significant genes, all samples
+svg("figures/heatmap_drfae_vs_untreated.svg")
 plot_genes(data.matrix.batch, "drfae")
 
-#dev.off()
-
-
+dev.off()
 
 # heatmap of hpyl vs untreated, all significant genes, all samples
-#svg("figures/heatmap_hpyl_vs_untreated.svg")
+svg("figures/heatmap_hpyl_vs_untreated.svg")
 plot_genes(data.matrix.batch, "hpyl")
-#dev.off()
+
+dev.off()
+
 # heatmap of drfae vs hpyl, all significant genes, all samples
 plot_genes(data.matrix.batch, "drfae_vs_hpyl")
 
 # heatmap of drfae vs hpyl, all significant genes, all samples, ANNOTATE by actual logFC values
 plot_genes(data.matrix.batch, "drfae_vs_hpyl", TRUE)
 
-# data.matrix.batch[, ...] %>% 
-#   plot_genes()
-# 
-# plot_genes(data.matrix.batch[, ...], )
 
 
 ## function to plot top genes
@@ -139,14 +135,17 @@ plot_top_genes <- function(mat,
            scale = "row")
   }
 
+# heatmap of drfae vs hpyl, top 20 significant genes, treated samples
 plot_top_genes(data.matrix.batch.treated.matched, 20)
-
+# heatmap of drfae vs hpyl, top 40 significant genes, treated samples
 plot_top_genes(data.matrix.batch.treated.matched, 40)
-
+# heatmap of drfae vs hpyl, top 60 significant genes, treated samples
 plot_top_genes(data.matrix.batch.treated.matched, 60)
 
-#svg("figures/heatmap_dfrae_vs_wt_600dpi.svg")
+# heatmap of drfae vs hpyl, all significant genes, treated samples
+svg("figures/heatmap_dfrae_vs_wt.svg")
+plot_top_genes(data.matrix.batch.treated.matched, 427) 
 
-plot_top_genes(data.matrix.batch.treated.matched, 427) #all sig genes
+dev.off()
 
-#dev.off()
+
