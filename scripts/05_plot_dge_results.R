@@ -83,12 +83,12 @@ plot_genes <- function(mat,
   } else {
     ann.row <- with(
       res[coef == comparison],
-      data.frame(row.names = rn, logFC = ifelse(logFC > 0, 1, -1))
+      data.frame(row.names = rn, logFC = ifelse(logFC > 0, "up", "down"))
     )
   }
   
   pheatmap(mat[res[coef == comparison][adj.P.Val < 0.05]$rn,],
-           annotation_colors = list(logFC = c("blue","red")),
+           annotation_colors = list(logFC = c(down = "blue",up = "red")),
            annotation_row = ann.row,
            cluster_cols = TRUE,
            show_rownames = FALSE,
@@ -125,10 +125,10 @@ plot_top_genes <- function(mat,
   
   ann_df <- ann_df[order(abs(ann_df$logFC), decreasing = TRUE),]  
   
-  ann.row <- with(ann_df[1:no_genes,], data.frame(row.names = gene,log2FC = ifelse(logFC > 0, 1,-1)))
+  ann.row <- with(ann_df[1:no_genes,], data.frame(row.names = gene,log2FC = ifelse(logFC > 0, "up","down")))
   
   pheatmap(mat[ann_df$gene[1:no_genes], ], 
-           annotation_colors = list(log2FC = c("blue","red")),
+           annotation_colors = list(log2FC = c(down = "blue",up = "red")),
            annotation_row = ann.row,
            cluster_cols = T,
            show_rownames = FALSE,
