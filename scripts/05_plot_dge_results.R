@@ -117,7 +117,8 @@ plot_genes(data.matrix.batch, "drfae_vs_hpyl", TRUE)
 
 ## function to plot top genes
 plot_top_genes <- function(mat, 
-                           no_genes = 20){
+                           no_genes = 20,
+                           show_rownames = FALSE){
   
   ann_df <- data.frame(logFC = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$logFC,
                        rn = res[coef == "drfae_vs_hpyl"][adj.P.Val < 0.05]$rn,
@@ -131,20 +132,20 @@ plot_top_genes <- function(mat,
            annotation_colors = list(log2FC = c(down = "blue",up = "red")),
            annotation_row = ann.row,
            cluster_cols = T,
-           show_rownames = FALSE,
+           show_rownames = show_rownames,
            scale = "row")
   }
 
 # heatmap of drfae vs hpyl, top 20 significant genes, treated samples
-plot_top_genes(data.matrix.batch.treated.matched, 20)
+plot_top_genes(data.matrix.batch.treated.matched, 20, TRUE)
 # heatmap of drfae vs hpyl, top 40 significant genes, treated samples
-plot_top_genes(data.matrix.batch.treated.matched, 40)
+plot_top_genes(data.matrix.batch.treated.matched, 40, TRUE)
 # heatmap of drfae vs hpyl, top 60 significant genes, treated samples
-plot_top_genes(data.matrix.batch.treated.matched, 60)
+plot_top_genes(data.matrix.batch.treated.matched, 60, TRUE)
 
 # heatmap of drfae vs hpyl, all significant genes, treated samples
 svg("figures/heatmap_dfrae_vs_wt.svg")
-plot_top_genes(data.matrix.batch.treated.matched, 427) 
+plot_top_genes(data.matrix.batch.treated.matched, 427, FALSE) 
 
 dev.off()
 
