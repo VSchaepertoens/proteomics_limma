@@ -47,6 +47,7 @@ stopifnot(all(pmap[,length(unique(Gene)), by = "Entry"][order(V1)]$V1) == 1)
 stopifnot(all(pmap[,length(unique(Organism)), by = "Entry"][order(V1)]$V1) == 1)
 
 # save Uniprot ID in a new column
+#res[!grepl("\\;", rn),Uniprot := gsub("sp\\|(.+)\\|.+$", "\\1", rn)]
 res[,Uniprot := gsub(pattern = "sp\\|(.+?)\\|.+$", replacement = "\\1", x = rn)]
 
 # match res and pmap by Uniprot ID
