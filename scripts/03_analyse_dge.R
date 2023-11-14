@@ -23,7 +23,7 @@ library(limma)
 
 # load data ---------------------------------------------------------------
 
-load("analysis/01_merge_data/all_data.RData")
+load("analysis/all_data.RData")
 
 
 # design matrix -----------------------------------------------------------
@@ -88,7 +88,7 @@ res[adj.P.Val < 0.05][,.N, by = c("coef", "direction")]
 # Number of tested
 res[,.N, by = c("coef", "direction")]
 
-saveRDS(res, file = "analysis/03_analyse_dge/results_dge.rds")
+saveRDS(res, file = "analysis/results_dge.rds")
 
 
 
