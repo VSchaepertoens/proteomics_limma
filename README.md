@@ -41,9 +41,10 @@ Create a folder `data` that will contain raw data downloaded from the following 
 Run these R scripts in the given in order to generate all files & plots
 
 -   [01_merge_data.R](scripts/01_merge_data.R) - Loads and merges all datasets, loads meta data, saves merged dataset and meta data. Produces one intermediary dataset: allData.Rdata
--   [02_explore_data.R](scripts/02_explore_data.R) - Explores data with PCA and Pearson's correlation, corrects for batch-effect. Produces two intermediary datasets: batch_corrected_all_data.rds and treated_batch_corrected_all_data.RData
+-   [02_explore_data.R](scripts/02_explore_data.R) - Explores data with PCA and Pearson's correlation, corrects for batch-effect. Produces one intermediary dataset: allData.Rdata
 -   [03_analyse_dge.R](scripts/03_analyse_dge.R) - Analyses differential protein expression using linear models package limma. Produces one intermediary dataset: results_dge.rds
--   [04_map_protein_to_gene.R](scripts/04_map_protein_to_gene.R) - Maps protein ids to gene ids. Produces two intermediary datasets: results_dge_gene.rds and matched_treated_batch_corrected_all_data.RData
+-   [04_map_protein_to_gene.R](scripts/04_map_protein_to_gene.R) - Maps protein ids to gene ids. Produces two intermediary datasets: results_dge.rds and all_data.RData
 -   [05_plot_dge_results.R](scripts/05_plot_dge_results.R) - Plots volcano plots, pval histograms and heatmaps of dge analysis
 -   [06_download_enrichr_database.R](scripts/06_download_enrichr_database.R) - Downloads respective databases from Enrichr for fGSEA analysis. Produces single gene sets database enrichr_database.tsv
 -   [07_analyse_gsea.R](scripts/07_analyse_gsea.R) - Runs fGSEA analysis on all data. Produces single results file results_gsea.tsv
+-   [08_plot_gsea_results.R](scripts/08_plot_gsea_results.R) - Plots results of the fGSEA analysis
