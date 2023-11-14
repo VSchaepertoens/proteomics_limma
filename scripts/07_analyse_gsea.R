@@ -24,7 +24,7 @@ library(fgsea)
 
 # load data ---------------------------------------------------------------
 
-res <- readRDS("analysis/04_map_protein_to_gene/results_dge_gene.rds")
+res <- readRDS("analysis/results_dge.rds")
 
 # Number of multi-matches
 table(grepl("\\;", res$rn))
@@ -75,5 +75,5 @@ gsea.res[padj < 0.05][,-"leadingEdge"][grp == "drfae"][order(padj)]
 gsea.res[padj < 0.05][,-"leadingEdge"][grp == "drfae_vs_hpyl"][order(padj)]
 
 
-write_tsv(x = gsea.res, file = "analysis/06_analyse_gsea/results_gsea.tsv")
+write_tsv(x = gsea.res, file = "analysis/results_gsea.tsv")
 
