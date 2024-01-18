@@ -22,6 +22,7 @@
 # load libraries ----------------------------------------------------------
 
 library(tidyverse)
+library(fs)
 
 
 # import datasets ---------------------------------------------------------
@@ -51,7 +52,7 @@ dim(data.matrix)
 colnames(data.matrix) <- data_meta$sample #rename columns of data.matrix
 
 # save data ---------------------------------------------------------------
-
+dir_create("analysis")
 save(data.matrix, data_meta, file = "analysis/all_data.RData")
 
 
