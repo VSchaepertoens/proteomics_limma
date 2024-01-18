@@ -25,7 +25,8 @@ library(pheatmap)
 
 # load data ---------------------------------------------------------------
 
-res <- readRDS("analysis/results_dge.rds")
+#res <- readRDS("analysis/results_dge.rds")
+load(file = "analysis/results_dge.RData")
 
 #data.matrix.batch <- readRDS("analysis/02_explore_data/batch_corrected_all_data.rds")
 load(file = "analysis/all_data.RData")
@@ -39,6 +40,9 @@ load(file = "analysis/all_data.RData")
 ggplot(res, aes(x = logFC, y = -log10(P.Value))) +
   geom_point() + 
   facet_wrap(~coef)
+
+ggsave("figures/figure_4b.pdf")
+
 
 # p-value histograms
 ggplot(res, aes(x = P.Value)) +
@@ -125,9 +129,9 @@ plot_top_genes <- function(mat,
                            no_genes = 20,
                            show_rownames = FALSE){
   
-  ann_df <- data.frame(logFC = res[coef == comparison][adj.P.Val < 0.05]$logFC,
-                       rn = res[coef == comparison][adj.P.Val < 0.05]$rn,
-                       gene = res[coef == comparison][adj.P.Val < 0.05]$Gene)
+  ann_df <- data.frame(logFC = res_matched[coef == comparison][adj.P.Val < 0.05]$logFC,
+                       rn = res_matched[coef == comparison][adj.P.Val < 0.05]$rn,
+                       gene = res_matched[coef == comparison][adj.P.Val < 0.05]$Gene)
   
   if (top_genes) {
     ann_df <- ann_df[order(abs(ann_df$logFC), decreasing = TRUE),]  
@@ -189,7 +193,7 @@ plot_top_genes(data.matrix.batch.matched.treated,
                TRUE)
 
 # heatmap of drfae vs hpyl, all significant genes, treated samples
-svg("figures/heatmap_drfae_vs_wt.svg")
+pdf("figures/figure_4a.pdf")
 plot_top_genes(data.matrix.batch.matched.treated, 
                "drfae_vs_hpyl", 
                TRUE,
