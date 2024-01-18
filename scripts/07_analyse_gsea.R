@@ -24,14 +24,15 @@ library(fgsea)
 
 # load data ---------------------------------------------------------------
 
-res <- readRDS("analysis/results_dge.rds")
+#res <- readRDS("analysis/results_dge.rds")
+load(file = "analysis/results_dge.RData")
 
 # Number of multi-matches
-table(grepl("\\;", res$rn))
+table(grepl("\\;", res_matched$rn))
 
-nrow(res[!is.na(Gene)])
+nrow(res_matched[!is.na(Gene)])
 
-agg.res.enr <- res[!is.na(Gene) & Organism == "Homo sapiens (Human)", .(score = mean(logFC, na.rm = TRUE)), by = c("Gene", "coef")]
+agg.res.enr <- res_matched[!is.na(Gene) & Organism == "Homo sapiens (Human)", .(score = mean(logFC, na.rm = TRUE)), by = c("Gene", "coef")]
 nrow(agg.res.enr)
 
 # load genesets (pathways for fgsea) ------------------------------
@@ -44,7 +45,7 @@ set.seed(119)
 gsea.res <- data.table()
 de.grp <- res$coef[1]
 
-for (de.grp in unique(res$coef)) {
+for (de.grp in unique(res_matched$coef)) {
   print(de.grp)
   gsea.res <- rbind(gsea.res, 
                     data.table(fgsea(
@@ -64,7 +65,8 @@ gsea.res$leadingEdge <- sapply(
 
 
 # gsea results ------------------------------------------------------------
-
+#gsea.res <- read_tsv("analysis/06_analyse_gsea/GSEA.tsv") %>% as.data.table()
+#gsea.res <- read_tsv("analysis/results_gsea.tsv") %>% as.data.table()
 dim(gsea.res[padj < 0.05])
 
 gsea.res[padj < 0.05]
