@@ -47,12 +47,12 @@ stopifnot(all(pmap[,length(unique(Gene)), by = "Entry"][order(V1)]$V1) == 1)
 stopifnot(all(pmap[,length(unique(Organism)), by = "Entry"][order(V1)]$V1) == 1)
 
 # save Uniprot ID in a new column
-res[!grepl("\\;", rn),Uniprot := gsub("sp\\|(.+)\\|.+$", "\\1", rn)]
-#res[,Uniprot := gsub(pattern = "sp\\|(.+?)\\|.+$", replacement = "\\1", x = rn)]
+#res[!grepl("\\;", rn),Uniprot := gsub("sp\\|(.+)\\|.+$", "\\1", rn)]
+res[,Uniprot := gsub(pattern = "sp\\|(.+?)\\|.+$", replacement = "\\1", x = rn)]
 
 # match res and pmap by Uniprot ID
 res <- merge(res, 
-             unique(pmap[,c('Entry', "Gene", "Organism"),with = F]), 
+             unique(pmap[,c('Entry', "Gene", "Organism"),with = FALSE]), 
              all.x = TRUE, 
              by.x = "Uniprot", 
              by.y = "Entry")
@@ -74,7 +74,7 @@ data.matrix.batch <- data.table(data.matrix.batch)
 data.matrix.batch[, Uniprot := gsub("sp\\|(.+?)\\|.+$", "\\1", rn)]
 
 data.matrix.batch <- merge(data.matrix.batch,
-                           unique(pmap[,c('Entry', "Gene", "Organism"),with = F]),
+                           unique(pmap[,c('Entry', "Gene", "Organism"),with = FALSE]),
                            all.x = TRUE,
                            by.x = "Uniprot",
                            by.y = "Entry")
