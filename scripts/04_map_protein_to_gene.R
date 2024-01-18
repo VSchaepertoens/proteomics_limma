@@ -23,7 +23,8 @@ library(data.table)
 
 # load data ---------------------------------------------------------------
 
-res <- readRDS(file = "analysis/results_dge.rds")
+#res <- readRDS(file = "analysis/results_dge.rds")
+load(file = "analysis/results_dge.RData")
 
 #data.matrix.batch <- readRDS(file = "analysis/02_explore_data/batch_corrected_all_data.rds")
 
@@ -37,7 +38,7 @@ pmap <- readRDS(file = "analysis/pmap.rds")
 
 #copy the original data to keep it unchanged and for checking the dimensions after mapping
 resOrig <- copy(res)
-res <- resOrig
+#res <- resOrig
 
 # all are sp entries
 stopifnot(all(grepl("^sp\\|", res$rn)))
@@ -62,7 +63,12 @@ stopifnot(all(res$res %in% resOrig$res))
 stopifnot(nrow(res) == nrow(resOrig))
 res$res <- NULL
 
-saveRDS(res, "analysis/results_dge.rds")
+res_matched <- res
+res <- resOrig
+
+#saveRDS(res, "analysis/results_dge.rds")
+save(res, res_matched, file = "analysis/results_dge.RData")
+
 
 ## data.matrix.batch ##
 # map protein to gene  ----------------------------------------------------
@@ -74,7 +80,7 @@ data.matrix.batch <- data.table(data.matrix.batch)
 data.matrix.batch[, Uniprot := gsub("sp\\|(.+?)\\|.+$", "\\1", rn)]
 
 data.matrix.batch <- merge(data.matrix.batch,
-                           unique(pmap[,c('Entry', "Gene", "Organism"),with = FALSE]),
+                           unique(pmap[,c('Entry', "Gene", "Organism"),with = F]),
                            all.x = TRUE,
                            by.x = "Uniprot",
                            by.y = "Entry")
