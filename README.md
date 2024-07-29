@@ -4,7 +4,7 @@ bibliography: analysis_proteomics.bib
 
 ------------------------------------------------------------------------
 
-# ADP-heptose attenuates *H. pylori*-induced type I IFN signaling in dendritic cells and impairs subsequent T cell responses
+# ADP-heptose attenuates *H. pylori*-induced DC activation
 
 This repository complements the publication by Neuper, Frauenlob et al (2024)
 
