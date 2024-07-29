@@ -4,7 +4,7 @@ bibliography: analysis_proteomics.bib
 
 ------------------------------------------------------------------------
 
-# ADP-heptose attenuates *H. pylori*-induced DC activation
+# ADP-heptose attenuates *Helicobacter pylori*-induced Dendritic Cell activation
 
 This repository complements the publication by Neuper, Frauenlob et al (2024)
 
@@ -34,7 +34,7 @@ Analysis for differential protein expression was performed using linear models a
 
 ## Download data
 
-Create a folder `data` that will contain raw data downloaded from the following link: [link to data]. After running the first script 01_merge_data.R, a folder `analysis` will appear in the project directory. Add the following datasets to the folder `analysis` and continue with the next scripts: pmap.rds & enrichr_database.tsv & GSEA.tsv & gsea_drfae_hpyl_short.tsv
+Create a folder `data` that will contain raw data downloaded from the following link: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13120610.svg)](https://doi.org/10.5281/zenodo.13120610). After running the first script 01_merge_data.R, a folder `analysis` will appear in the project directory. Add the following datasets to the folder `analysis` and continue with the next scripts: pmap.rds & enrichr_database.tsv & GSEA.tsv & gsea_drfae_hpyl_short.tsv
 
 ## Main workflow
 
