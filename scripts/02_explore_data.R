@@ -59,9 +59,6 @@ pheatmap(cor(data.matrix,method = "spearman"))
 data.matrix.batch <- removeBatchEffect(x = data.matrix,
                                        batch = data_meta$experiment)
 
-# saveRDS(data.matrix.batch, 
-#         file = "analysis/02_explore_data/batch_corrected_all_data.rds")
-
 save(data.matrix, data_meta, data.matrix.batch, file = "analysis/all_data.RData")
 
 # batch-corrected plot PCA ------------------------------------------------
@@ -83,18 +80,4 @@ ggplot(var_explained, aes(x = rownames(var_explained), y = variance)) +
 # batch-corrected plot heatmap of Pearson correlations --------------------
 
 pheatmap(cor(data.matrix.batch,method = "spearman"))
-
-# # subset only treated batch-corrected samples -----------------------------
-# 
-# data.matrix.batch.treated <- data.matrix.batch[, -grep("un", colnames(data.matrix.batch))]
-# 
-# data_meta_treated <- data_meta[-grep("un", data_meta$treatment),]
-# 
-# save(data.matrix.batch.treated, 
-#      data_meta_treated, 
-#      file = "analysis/02_explore_data/treated_batch_corrected_all_data.RData")
-
-
-
-
 

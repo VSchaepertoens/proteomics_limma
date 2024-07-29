@@ -25,14 +25,9 @@ library(pheatmap)
 
 # load data ---------------------------------------------------------------
 
-#res <- readRDS("analysis/results_dge.rds")
 load(file = "analysis/results_dge.RData")
 
-#data.matrix.batch <- readRDS("analysis/02_explore_data/batch_corrected_all_data.rds")
 load(file = "analysis/all_data.RData")
-
-#load(file = "analysis/04_map_protein_to_gene/matched_treated_batch_corrected_all_data.RData")
-
 
 # plot results ------------------------------------------------------------
 
@@ -69,59 +64,6 @@ ggplot(pDT[adj.P.Val < 0.05], aes(x = logFC_hpyl, y = logFC_drfae)) +
 
 
 # plot heatmaps of log2 values --------------------------------------------
-# 
-# # function to plot all proteins for a certain condition
-# plot_genes <- function(mat,
-#                        comparison,
-#                        detailed_annotation = FALSE,
-#                        top_n = Inf) {
-#   # selected_genes <- 
-#   #   res[coef == "drfae_vs_hpyl"] %>%
-#   #   as_tibble() %>% 
-#   #   mutate(abs_logFC = abs(logFC)) %>% 
-#   #   slice_max(n = top_n, abs_logFC) %>% 
-#   #   pull(Gene)
-#   
-#   if (detailed_annotation) {
-#     annx <- dcast.data.table(res, rn ~ coef, value.var = "logFC")
-#     ann.row <- data.frame(row.names = annx$rn, annx[, -"rn", with = FALSE])
-#   } else {
-#     ann.row <- with(
-#       res[coef == comparison],
-#       data.frame(row.names = rn, logFC = ifelse(logFC > 0, "up", "down"))
-#     )
-#   }
-#   
-#   ann_df <- data.frame(rn = res[coef == comparison][adj.P.Val < 0.05]$rn)
-#   
-#   pheatmap(mat[ann_df$rn,],
-#            annotation_colors = list(logFC = c(down = "blue",up = "red")),
-#            annotation_row = ann.row,
-#            cluster_cols = TRUE,
-#            show_rownames = FALSE,
-#            scale = "row")  
-# }
-# 
-# # heatmap of drfae vs untreated, all significant genes, all samples
-# svg("figures/heatmap_drfae_vs_untreated.svg")
-# plot_genes(data.matrix.batch, "drfae")
-# 
-# dev.off()
-# 
-# # heatmap of hpyl vs untreated, all significant genes, all samples
-# svg("figures/heatmap_hpyl_vs_untreated.svg")
-# plot_genes(data.matrix.batch, "hpyl")
-# 
-# dev.off()
-# 
-# # heatmap of drfae vs hpyl, all significant genes, all samples
-# plot_genes(data.matrix.batch, "drfae_vs_hpyl")
-# 
-# # heatmap of drfae vs hpyl, all significant genes, all samples, ANNOTATE by actual logFC values
-# plot_genes(data.matrix.batch, "drfae_vs_hpyl", TRUE)
-
-
-
 ## function to plot top genes
 plot_top_genes <- function(mat, 
                            comparison,

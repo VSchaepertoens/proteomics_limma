@@ -24,7 +24,6 @@ library(fgsea)
 
 # load data ---------------------------------------------------------------
 
-#res <- readRDS("analysis/results_dge.rds")
 load(file = "analysis/results_dge.RData")
 
 # Number of multi-matches
@@ -38,7 +37,6 @@ nrow(agg.res.enr)
 # load genesets (pathways for fgsea) ------------------------------
 
 genesets <- read_tsv("analysis/enrichr_database.tsv")
-
 
 # enrichment analysis using fgsea -----------------------------------------
 set.seed(119)
@@ -65,8 +63,6 @@ gsea.res$leadingEdge <- sapply(
 
 
 # gsea results ------------------------------------------------------------
-#gsea.res <- read_tsv("analysis/06_analyse_gsea/GSEA.tsv") %>% as.data.table()
-#gsea.res <- read_tsv("analysis/results_gsea.tsv") %>% as.data.table()
 dim(gsea.res[padj < 0.05])
 
 gsea.res[padj < 0.05]

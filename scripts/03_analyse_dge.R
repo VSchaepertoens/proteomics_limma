@@ -88,7 +88,6 @@ res[adj.P.Val < 0.05][,.N, by = c("coef", "direction")]
 # Number of tested
 res[,.N, by = c("coef", "direction")]
 
-#saveRDS(res, file = "analysis/results_dge.rds")
 save(res, file = "analysis/results_dge.RData")
 
 

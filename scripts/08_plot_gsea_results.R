@@ -30,8 +30,6 @@ library(paletteer)
 gsea.res <- read_tsv("analysis/GSEA.tsv") %>%
   data.table()
 
-
-
 dim(gsea.res[padj < 0.05])
 
 gsea.res[padj < 0.05]
@@ -65,12 +63,10 @@ ggplot(data = data_to_plot) +
         legend.title = element_text(angle = 90),
         legend.box.spacing = unit(1, "pt")) # The spacing between the plotting area and the legend box (unit))
   
-#RGB (160, 0, 0) --> rgb(0.62, 0, 0)
 
 dev.off()  
 # dot plot ----------------------------------------------------------------
 
-#svg(filename = "figures/gsea_drfae_wt.svg")
 svg(filename = "figures/dotplot_gsea_drfae_wt.svg", width = 2.8, height = 2.6)
 
 
@@ -84,10 +80,7 @@ ggplot(data_to_plot, aes(x = "drfae_vs_wt", y = reorder(pathway, NES), size = -l
   theme(text = element_text(size = 6, family = "sans"),
         legend.key.height = unit(4, 'mm'),
         legend.key.width = unit(2, 'mm'),
-        #legend.title = element_text(angle = 90),
-        legend.box.spacing = unit(1, "pt")) # The spacing between the plotting area and the legend box (unit))
+        legend.box.spacing = unit(1, "pt")) 
 
-
-#dev.off()
 dev.off()  
 
