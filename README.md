@@ -22,7 +22,7 @@ Prior to the analysis in this repository, the mass spectrometry proteomics data 
 
 For data evaluation, MaxQuant 2.0.1.0 [@Cox2008] was used in default settings for label-free quantification (LFQ), employing a protein database from the Uniprot consortium [@Bateman2020] Homo sapiens from 19.12.2022 applying a 1% false discovery rate. The obtained protein groups were processed using the Perseus software platform [@Rudolph2018]. First, the protein groups were filtered by removing proteins that were only identified by site and reverse sequence matches. Next, the intensities were log2 transformed and normalized by subtraction of the median.
 
-Such log2-transformed, normalized, and batch-corrected data tables can be downloaded from the Zenodo repository xx.
+Such log2-transformed, normalized, and batch-corrected data tables can be downloaded from the Zenodo repository [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13120610.svg)](https://doi.org/10.5281/zenodo.13120610).
 
 ## Analysis description
 
