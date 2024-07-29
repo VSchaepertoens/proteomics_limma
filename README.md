@@ -34,7 +34,7 @@ Analysis for differential protein expression was performed using linear models a
 
 ## Download data
 
-Create a folder `data` that will contain raw data downloaded from the following link: [link to data]
+Create a folder `data` that will contain raw data downloaded from the following link: [link to data]. After running the first script 01_merge_data.R, a folder `analysis` will appear in the project directory. Add the following datasets to the folder `analysis` and continue with the next scripts: pmap.rds & enrichr_database.tsv & GSEA.tsv & gsea_drfae_hpyl_short.tsv
 
 ## Main workflow
 
