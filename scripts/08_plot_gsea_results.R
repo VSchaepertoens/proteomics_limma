@@ -38,9 +38,9 @@ gsea.res[padj < 0.05]
 
 data_to_plot <- gsea.res[padj < 0.05][,-"leadingEdge"][grp == "drfae_vs_hpyl"][order(padj)]
 
-write.table(data_to_plot, "analysis/06_analyse_gsea/gsea_drfae_hpyl.tsv")
+write.table(data_to_plot, "analysis/gsea_drfae_hpyl.tsv")
 
-data_to_plot <- read_delim("analysis/06_analyse_gsea/gsea_drfae_hpyl_short.tsv",
+data_to_plot <- read_delim("analysis/gsea_drfae_hpyl_short.tsv",
                            delim = " ")
  
 
