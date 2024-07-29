@@ -27,7 +27,7 @@ library(paletteer)
 # load gsea results -------------------------------------------------------
 
 
-gsea.res <- read_tsv("analysis/06_analyse_gsea/GSEA.tsv") %>%
+gsea.res <- read_tsv("analysis/GSEA.tsv") %>%
   data.table()
 
 
