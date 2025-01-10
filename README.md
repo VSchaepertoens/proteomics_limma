@@ -4,9 +4,9 @@ bibliography: analysis_proteomics.bib
 
 ------------------------------------------------------------------------
 
-# ADP-heptose attenuates *Helicobacter pylori*-induced Dendritic Cell activation
+# ADP-heptose attenuates *Helicobacter pylori*-induced dendritic cell activation
 
-This repository complements the publication by Neuper, Frauenlob et al (2024)
+This repository complements the publication by Neuper et al (2024) https://doi.org/10.1080/19490976.2024.2402543 
 
 ## Folders
 
